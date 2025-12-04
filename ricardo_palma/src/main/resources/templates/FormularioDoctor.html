@@ -1,75 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Doctor</title>
+    <title>Registro de Doctor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* CSS Personalizado para el fondo y centrado */
+        body {
+            background-color: #f8f9fa; /* Fondo gris suave */
+        }
+        .form-card {
+            max-width: 800px; /* Ancho máximo para formularios */
+            width: 100%;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        /* Estilo para los títulos */
+        .form-card h1, .form-card h2 {
+            color: #007bff; /* Azul primario */
+            font-weight: 600;
+        }
+    </style>
 </head>
-<style>
-    body {
-        background-color: rgb(179, 238, 248);
-    }
-</style>
 <body>
     
-    <h1 class="text-center bg-info p-3 text-white">Formulario Doctor</h1>
+    <h1 class="text-center bg-primary p-4 text-white">
+        <i class="bi bi-person-badge me-2"></i> Formulario de Registro de Doctor
+    </h1>
 
-    <div class="container bg-white text-center my-4 p-4 rounded-5 shadow-lg">
-        <h2 class="text-info">Registro de Datos</h2>
+    <div class="container bg-white form-card mx-auto">
+        <h2 class="text-center mb-4">Registro de Datos Personales y Profesionales</h2>
+        
         <form th:action="@{/FormularioDoctor/guardar}" th:object="${doctor}" method="post">
             <input type="hidden" th:field="*{id}"/>
-            <div class="row text-start my-3">
-                <div class="col-6">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre(s)">
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre(s)" required>
+                        <label for="nombre"><i class="bi bi-person-vcard me-1"></i> Nombre</label>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Apellidos">
-                </div>
-            </div>
-            <div class="row text-start my-3">
-                <div class="col">
-                    <label for="correo" class="form-label">Correo</label>
-                    <input type="email" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@correo.com">
-                </div>
-            </div>
-            <div class="row text-start my-3">
-                <div class="col-6">
-                    <label for="telefono" class="form-label">Telefono</label>
-                    <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Telefono">
-                </div>
-                <div class="col-6">
-                    <label for="cedula" class="form-label">Cedula Profesional</label>
-                    <input type="text" th:field="*{cedula}" class="form-control" id="cedula" placeholder="Cedula Profesional">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Apellidos" required>
+                        <label for="apellidos"><i class="bi bi-person-vcard me-1"></i> Apellidos</label>
+                    </div>
                 </div>
             </div>
-            <div class="row text-start my-3">
-                <div class="col-3">
-                    <label for="especialidad" class="form-label">Especialidad</label>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="email" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@correo.com" required>
+                        <label for="correo"><i class="bi bi-envelope me-1"></i> Correo Electrónico</label>
+                    </div>
                 </div>
-                <div class="col-9">
-                    <select class="form-select" th:field="*{especialidad}" id="especialidad" required>
-                        <option value="" selected>Selecione una especialidad</option>      
-                        <option value="Pediatria">Pediatria</option>      
-                        <option value="Geriatria">Geriatria</option>      
-                        <option value="Traumatología">Traumatología</option>      
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="tel" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Teléfono" required>
+                        <label for="telefono"><i class="bi bi-telephone me-1"></i> Teléfono</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="text" th:field="*{cedula}" class="form-control" id="cedula" placeholder="Cédula Profesional" required>
+                        <label for="cedula"><i class="bi bi-credit-card me-1"></i> Cédula Profesional</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="date" th:field="*{fechaNacimiento}" class="form-control" id="fechaNacimiento" required>
+                        <label for="fechaNacimiento"><i class="bi bi-calendar me-1"></i> Fecha de Nacimiento</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="text" th:field="*{direccion}" class="form-control" id="direccion" placeholder="Dirección" required>
+                        <label for="direccion"><i class="bi bi-house me-1"></i> Dirección</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-5">
+                <div class="col-md-12">
+                    <label for="especialidad" class="form-label fw-bold"><i class="bi bi-clipboard-check me-2"></i> Especialidad</label>
+                    <select class="form-select form-select-lg" th:field="*{especialidad}" id="especialidad" required>
+                        <option value="">Selecione una especialidad</option> 
+                        <option value="Pediatria">Pediatría</option> 
+                        <option value="Geriatria">Geriatría</option> 
+                        <option value="Traumatología">Traumatología</option>
+                        <option value="Cardiología">Cardiología</option> 
+                        <option value="Dermatología">Dermatología</option> 
                     </select>
                 </div>
             </div>
-            <div class="row text-start my-3">
-                <div class="col">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" th:field="*{direccion}" class="form-control" id="direccion" placeholder="ejemplo: Las Vegas 234">
+
+            <div class="row my-4 justify-content-center">
+                <div class="col-md-5 d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-save me-2"></i> Guardar Doctor
+                    </button>
                 </div>
-            </div>
-            <div class="row text-start my-3">
-                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" th:field="*{fechaNacimiento}" class="form-control" id="fechaNacimiento">
-            </div>
-            <div class="row my-3 mx-5">
-                    <button type="submit" class="btn btn-info text-white fs-5">Enviar</button>
+                <div class="col-md-5 d-grid">
+                    <a th:href="@{/PaginaPrincipal}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left-circle me-2"></i> Cancelar / Volver
+                    </a>
+                </div>
             </div>
         </form>
     </div>

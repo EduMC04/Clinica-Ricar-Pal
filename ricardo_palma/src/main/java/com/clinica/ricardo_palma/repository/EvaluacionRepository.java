@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.clinica.ricardo_palma.model.EstadisticaDoctorDTO;
 import com.clinica.ricardo_palma.model.Evaluacion;
@@ -15,4 +16,9 @@ public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
         "AVG(e.puntualidad), AVG(e.trato), AVG(e.cumplimiento), AVG(e.servicio)) " +
         "FROM Evaluacion e GROUP BY e.doctor.id, e.doctor.nombre, e.doctor.apellidos")
         List<EstadisticaDoctorDTO> obtenerPromediosPorDoctor();
+
+    @Query("SELECT new com.clinica.ricardo_palma.model.EstadisticaDoctorDTO(d.nombre, d.apellidos, AVG(e.puntualidad), AVG(e.trato), AVG(e.cumplimiento), AVG(e.servicio)) " +
+        "FROM Evaluacion e JOIN e.doctor d WHERE d.especialidad = :especialidad " + // Filtro clave
+        "GROUP BY e.doctor.id, d.nombre, d.apellidos")
+    List<EstadisticaDoctorDTO> obtenerEstadisticasPorEspecialidad(@Param("especialidad") String especialidad);
 }

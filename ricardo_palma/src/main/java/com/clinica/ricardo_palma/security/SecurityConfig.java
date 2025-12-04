@@ -14,13 +14,21 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/FormularioEvaluacion").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/index").permitAll()
+                        .requestMatchers("/evaluaciones").permitAll()
+                        .requestMatchers("/contacto").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/PaginaPrincipal")
+                        .defaultSuccessUrl("/PaginaPrincipal", true)
                         .permitAll()
+                )
+                .logout(logout -> logout
+                    .logoutSuccessUrl("/index")
+                    .permitAll()
                 );
 
         return httpSecurity.build();

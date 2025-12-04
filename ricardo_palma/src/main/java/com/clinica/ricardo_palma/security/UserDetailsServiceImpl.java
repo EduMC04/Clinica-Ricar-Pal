@@ -29,7 +29,5 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
             Collections.emptyList()            // Lista de Authorities/Roles vacía
         );
     }
-    
-
 
 }

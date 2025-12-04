@@ -9,6 +9,7 @@ import java.util.List;
 import org.openpdf.text.pdf.PdfPCell;
 import org.openpdf.text.pdf.PdfPTable;
 import org.openpdf.text.pdf.PdfWriter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.openpdf.text.*;
 
@@ -32,7 +33,12 @@ public class ReportePdfService {
 
             Paragraph datosEmpresa = new Paragraph();
 
-            Image logo = Image.getInstance(getClass().getResource("/imagenes/clinica-ricardo-palma.png"));
+            /* Image logo = Image.getInstance(getClass().getResource("/static/images/clinica-ricardo-palma (1)")); */
+
+            String imagePath = "static/images/clinica-ricardo-palma (1).png";
+            ClassPathResource resource = new ClassPathResource(imagePath);
+            byte[] imageBytes = resource.getInputStream().readAllBytes();
+            Image logo = Image.getInstance(imageBytes);
 
             logo.scaleToFit(120, 60);
 
